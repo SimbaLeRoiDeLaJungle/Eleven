@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: roi-dante1
+  m_EditorClassIdentifier: 
+  cardName: Roi Dante
+  cardType: 0
+  cardRef: roi-dante1
+  side: 1
+  time: 2
+  power: 60
+  cost: 40
+  effect: "Ce personnage gagne 10 de puissance pour chaque h\xE9ros pr\xE9sent sur
+    le terrain de votre adversaire."

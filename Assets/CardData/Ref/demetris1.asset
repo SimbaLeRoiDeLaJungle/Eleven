@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: demetris1
+  m_EditorClassIdentifier: 
+  cardName: "D\xE9m\xE9tris"
+  cardType: 0
+  cardRef: demetris1
+  side: 3
+  time: 4
+  power: 150
+  cost: 100
+  effect: "\xC0 chaque fois que ce personnage attaque, vous devez d\xE9fausser un
+    h\xE9ros actif de votre terrain. La puissance du h\xE9ros actif est alors rajout\xE9e
+    \xE0 la puissance de Demetris pour cette attaque. Si vous n\u2019avez aucun autre
+    h\xE9ros en jeu que cette carte, alors il ne peut pas attaquer."

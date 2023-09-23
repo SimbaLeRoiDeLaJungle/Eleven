@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: barius1
+  m_EditorClassIdentifier: 
+  cardName: Barius
+  cardType: 0
+  cardRef: barius1
+  side: 2
+  time: 2
+  power: 60
+  cost: 40
+  effect: "Si l\u2019un de vos personnage a \xE9t\xE9 tu\xE9 lors du tour pr\xE9c\xE9dent
+    de votre adversaire, la puissance de ce personnage augmente de 40."
