@@ -2400,8 +2400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createAcountButton: {fileID: 82528839}
-  username: {fileID: 869969137}
-  email: {fileID: 694993477}
+  username: {fileID: 537941039}
+  email: {fileID: 2087389181}
   password1: {fileID: 741942928}
   password2: {fileID: 1613386172}
   createAcountButton2: {fileID: 1598616339}
@@ -3335,8 +3335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bc65b2c5bd66f44bab84b304b69f5ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userName: {fileID: 1863358243}
-  password: {fileID: 1750628892}
+  userName: {fileID: 387802191}
+  password: {fileID: 1144237337}
 --- !u!1 &1598616337
 GameObject:
   m_ObjectHideFlags: 0

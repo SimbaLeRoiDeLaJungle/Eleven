@@ -10,21 +10,24 @@ public class CreateAcountPannel : MonoBehaviour
     [SerializeField]
     Button createAcountButton;
     [SerializeField]
-    TMP_Text username;
+    TMP_InputField username;
     [SerializeField]
-    TMP_Text email;
+    TMP_InputField email;
     [SerializeField]
     TMP_InputField password1;
     [SerializeField]
     TMP_InputField password2;
     [SerializeField]
     Button createAcountButton2;
+
+    public string Username{get{return username.text;}}
+    public string Email { get { return email.text;}}
+    public string Password1 { get { return password1.text;}}
+    public string Password2 { get { return password2.text;}}
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
-        createAcountButton.onClick.AddListener(() => ShowPannel());
-        createAcountButton2.onClick.AddListener(() => AddUser());
     }
 
     // Update is called once per frame
@@ -50,14 +53,8 @@ public class CreateAcountPannel : MonoBehaviour
         }
     }
 
-    void ShowPannel()
+    public void ShowPannel()
     {
         animator.SetTrigger("show");
-    }
-
-    void AddUser()
-    {
-        if(password1.text == password2.text)
-            StartCoroutine(DBManager.AddUserToDB(username.text,email.text,password1.text));
     }
 }

@@ -15,6 +15,9 @@ public class Client : MonoBehaviour
     public int myId = 0;
     public TCP tcp;
 
+    public string username = "No-Name";
+    public int db_id = -1;
+
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
@@ -34,6 +37,8 @@ public class Client : MonoBehaviour
     private void Start()
     {
         tcp = new TCP();
+
+        ConnectToServer();
     }
 
     public void ConnectToServer()
@@ -168,7 +173,9 @@ public class Client : MonoBehaviour
     {
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
-            { (int)ServerPackets.welcome, ClientHandle.Welcome }
+            { (int)ServerPackets.welcome, ClientHandle.Welcome },
+            { (int)ServerPackets.createUser, ClientHandle.CreateUser },
+            { (int)ServerPackets.loginResponse, ClientHandle.LoginResponse}
         };
         Debug.Log("Initialized packets.");
     }

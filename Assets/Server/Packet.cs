@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
+using UnityEngine;
 /// <summary>Sent from server to client.</summary>
 public enum ServerPackets
 {
-    welcome = 1
+    welcome = 1,
+    createUser = 2,
+    loginResponse = 3
 }
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
-    welcomeReceived = 1
+    welcomeReceived = 1,
+    createUserRequest = 2,
+    loginRequest = 3
 }
 
 public class Packet : IDisposable
@@ -152,6 +156,7 @@ public class Packet : IDisposable
     /// <param name="_value">The string to add.</param>
     public void Write(string _value)
     {
+        Debug.Log($"{_value} : {_value.Length}");
         Write(_value.Length); // Add the length of the string to the packet
         buffer.AddRange(Encoding.ASCII.GetBytes(_value)); // Add the string itself
     }

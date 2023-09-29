@@ -6,16 +6,12 @@ using TMPro;
 public class LoginButton : MonoBehaviour
 {
     [SerializeField]
-    TMP_Text userName;
+    TMP_InputField userName;
     [SerializeField]
-    TMP_Text password;
+    TMP_InputField password;
     Button button;
 
 
-    void Start()
-    {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(() => Client.instance.ConnectToServer());
-        
-    }
+
 }
+
