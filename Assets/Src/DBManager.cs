@@ -17,8 +17,8 @@ public static class DBManager
     {
         string hash = HashInput(secretKey);
         string post_url = connectUserUrl + "username=" + 
-            userName + "&password=" +
-            password +
+            UnityWebRequest.EscapeURL(userName) + "&password=" +
+            UnityWebRequest.EscapeURL(password) +
             "&hash=" + hash;
         Debug.Log(post_url);
         UnityWebRequest hs_post = UnityWebRequest.Post(post_url, hash);

@@ -15,6 +15,7 @@ public class LoginButton : MonoBehaviour
     void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(() => StartCoroutine(DBManager.ConnectUser(userName.text,password.text)));
+        button.onClick.AddListener(() => Client.instance.ConnectToServer());
+        
     }
 }
