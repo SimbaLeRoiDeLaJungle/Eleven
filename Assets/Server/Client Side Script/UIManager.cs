@@ -31,27 +31,14 @@ public class UIManager : MonoBehaviour
 
     public void ConnectUser()
     {
-        using (Packet packet = new Packet((int)ClientPackets.loginRequest))
-        {
-            packet.Write(Client.instance.myId);
-            packet.Write(userName.text);
-            packet.Write(password.text);
-            ClientSend.SendTCPData(packet);
-        }
+        ClientSend.LoginRequest(userName.text, password.text);
     }
 
     public void AddUser()
     {
         if (createAcountPannel.Password1 == createAcountPannel.Password2)
         {
-            using (Packet packet = new Packet((int)ServerPackets.createUser))
-            {
-                packet.Write(Client.instance.myId);
-                packet.Write(createAcountPannel.Username);
-                packet.Write(createAcountPannel.Password1);
-                packet.Write(createAcountPannel.Email);
-                ClientSend.SendTCPData(packet);
-            }
+            ClientSend.CreateUserRequest(createAcountPannel.Username, createAcountPannel.Password1, createAcountPannel.Email);
         }
     }
 }

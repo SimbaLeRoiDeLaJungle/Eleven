@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClientSend : MonoBehaviour
 {
-    public static void SendTCPData(Packet _packet)
+    private static void SendTCPData(Packet _packet)
     {
         _packet.WriteLength();
         Client.instance.tcp.SendData(_packet);
@@ -59,6 +59,29 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
         
+    }
+
+    public static void LoginRequest(string username, string password)
+    {
+        using (Packet packet = new Packet((int)ClientPackets.loginRequest))
+        {
+            packet.Write(Client.instance.myId);
+            packet.Write(username);
+            packet.Write(password);
+            ClientSend.SendTCPData(packet);
+        }
+    }
+
+    public static void CreateUserRequest(string username, string password, string email)
+    {
+        using (Packet packet = new Packet((int)ServerPackets.createUser))
+        {
+            packet.Write(Client.instance.myId);
+            packet.Write(username);
+            packet.Write(password);
+            packet.Write(email);
+            ClientSend.SendTCPData(packet);
+        }
     }
     #endregion
 }
