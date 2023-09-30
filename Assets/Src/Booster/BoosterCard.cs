@@ -30,4 +30,10 @@ public class BoosterCard : MonoBehaviour
     {
         animator.SetTrigger("hide");
     }
+
+    public bool IsAnimated()
+    {
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        return !stateInfo.IsName("Base Layer.Base_State");
+    }
 }

@@ -33,6 +33,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _myId = _packet.ReadInt();
         int _dbId = _packet.ReadInt();
+        string username = _packet.ReadString();
 
         if(_dbId<0)
         {
@@ -41,8 +42,32 @@ public class ClientHandle : MonoBehaviour
         else
         {
             Debug.Log($"Connection effectuer : DB_ID = {_dbId}");
+            Client.instance.db_id = _dbId;
+            Client.instance.username = username;
             SceneManager.LoadScene(1);
         }
+    }
+
+    public static void UpdateCollection(Packet _packet)
+    {
+        Debug.Log("pass");
+        List<CardAndCount> data = new List<CardAndCount>();
+        int Length = _packet.ReadInt();
+        for(int i = 0; i < Length; i++) 
+        {
+            int card_id = _packet.ReadInt();
+            int serie_id = _packet.ReadInt();
+            int count = _packet.ReadInt();
+            CardScriptable script = SeriesData.instance.GetCard(serie_id, card_id);
+            if(script != null)
+            {
+                data.Add(new CardAndCount(script, count));
+            }
+            
+        }
+        data.Sort();
+        Client.instance.SetCollection(data);
+        Client.instance.SetIsReady(true);
     }
 
 }

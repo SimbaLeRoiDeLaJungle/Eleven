@@ -74,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
-        m_Texture: {fileID: 2800000, guid: 839242d4fdbe13f488f395d99e678e15, type: 3}
+        m_Texture: {fileID: 2800000, guid: d62f6e80be2b4cf4c9ee440e1a8d78e3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -149,7 +149,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RainbowOffset: {r: 0.98499924, g: 0, b: 0, a: 0}
+    - _RainbowOffset: {r: 0.14, g: 0, b: 0, a: 0}
     - _RainbowTilling: {r: 0.3, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _maskOffset: {r: -1.055, g: 0, b: 0, a: 0}

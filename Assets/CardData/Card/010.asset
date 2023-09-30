@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 010
   m_EditorClassIdentifier: 
   cardRef: {fileID: 11400000, guid: 6f16474c42593304bbd4e20521aa9a9a, type: 2}
-  number: 0
+  number: 10
   serieNumber: 0
   rarety: 2
   sprite: {fileID: 21300000, guid: c27d64f3bfe508f40af25920f4d2bddd, type: 3}

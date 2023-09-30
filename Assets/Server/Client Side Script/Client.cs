@@ -18,6 +18,11 @@ public class Client : MonoBehaviour
     public string username = "No-Name";
     public int db_id = -1;
 
+    public bool isReady = true;
+
+    List<CardAndCount> collection = new List<CardAndCount>();
+
+
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
@@ -26,6 +31,7 @@ public class Client : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(transform.gameObject);
         }
         else if (instance != this)
         {
@@ -175,8 +181,29 @@ public class Client : MonoBehaviour
         {
             { (int)ServerPackets.welcome, ClientHandle.Welcome },
             { (int)ServerPackets.createUser, ClientHandle.CreateUser },
-            { (int)ServerPackets.loginResponse, ClientHandle.LoginResponse}
+            { (int)ServerPackets.loginResponse, ClientHandle.LoginResponse},
+            { (int)ServerPackets.updateCollection, ClientHandle.UpdateCollection }
         };
         Debug.Log("Initialized packets.");
+    }
+
+    internal void SetCollection(List<CardAndCount> data)
+    {
+        collection = data;
+    }
+
+    public List<CardAndCount> GetCollection()
+    {
+        return collection;
+    }
+
+    public void SetIsReady(bool _isReady)
+    {
+        isReady = _isReady;
+    }
+
+    public bool GetIsReady()
+    {
+        return isReady;
     }
 }

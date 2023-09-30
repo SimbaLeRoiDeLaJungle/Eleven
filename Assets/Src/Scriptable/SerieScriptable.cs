@@ -13,6 +13,13 @@ public class SerieScriptable : ScriptableObject
 
     Dictionary<CardRarety, int> raretyCount;
 
+    [SerializeField]
+    int faPull;
+    [SerializeField]
+    int altPull;
+    [SerializeField]
+    int pullOn;
+
     void Init()
     {
         raretyCount = new Dictionary<CardRarety, int>();
@@ -48,7 +55,20 @@ public class SerieScriptable : ScriptableObject
             }
             else
             {
-                rarety = CardRarety.FA;
+                int rand2 = Random.Range(0, pullOn);
+                if(rand2 > pullOn - altPull)
+                {
+                    rarety = CardRarety.ALT;
+                }
+                else if(rand2 > pullOn - faPull - altPull)
+                {
+                    rarety = CardRarety.FA;
+                }
+                else
+                {
+                    rarety = CardRarety.Rare;
+                }
+                
             }
             int rand = Random.Range(0,raretyCount[rarety]);
             CardScriptable card = ProcessGet(rand, rarety);
@@ -67,6 +87,18 @@ public class SerieScriptable : ScriptableObject
                 if(j==index)
                     return cards[i];
                 j+=1;
+            }
+        }
+        return null;
+    }
+
+    public CardScriptable GetCard(int card_id)
+    {
+        foreach(CardScriptable card in cards) 
+        {
+            if(card.number == card_id)
+            {
+                return card;
             }
         }
         return null;

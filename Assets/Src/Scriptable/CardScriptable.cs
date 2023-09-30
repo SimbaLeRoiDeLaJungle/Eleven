@@ -56,5 +56,10 @@ public class CardScriptable : ScriptableObject
     {
         return cardRef.GetEffect(i);
     }
+
+    public string GetCardStringId()
+    {
+        return $"{cardRef.cardName} ({serieNumber}.{number})";
+    }
 }
 

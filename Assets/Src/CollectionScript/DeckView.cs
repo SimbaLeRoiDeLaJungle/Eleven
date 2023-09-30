@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using System;
 
 [Serializable]
-struct CardDeckInfo
+public struct CardAndCount: IComparable<CardAndCount>, IEquatable<CardAndCount>
 {
-    public CardDeckInfo(CardScriptable script, int count)
+    public CardAndCount(CardScriptable script, int count)
     {
         this.script = script;
         this.count = count;
@@ -16,6 +16,38 @@ struct CardDeckInfo
     public CardScriptable script;
     [SerializeField]
     public int count;
+
+    public int CompareTo(CardAndCount other)
+    {
+        if(other.script.serieNumber < script.serieNumber)
+        {
+            return 1;
+        }
+        else if(other.script.serieNumber > script.serieNumber)
+        {
+            return -1;
+        }
+        else
+        {
+            if(other.script.number < script.number)
+            {
+                return 1;
+            }
+            else if(other.script.number > script.number)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+
+    public bool Equals(CardAndCount other)
+    {
+        return other.script.serieNumber == script.serieNumber && other.script.number == script.number;
+    }
 }
 
 public class DeckView : MonoBehaviour

@@ -15,7 +15,7 @@ MonoBehaviour:
   cardRef: {fileID: 11400000, guid: 03c04663011024b41a8901e67c5e8e79, type: 2}
   number: 26
   serieNumber: 0
-  rarety: 0
+  rarety: 1
   sprite: {fileID: 21300000, guid: 5f79c0c165e635442b2d9d9a84562c50, type: 3}
   maskSprite: {fileID: 0}
   material: {fileID: 2100000, guid: bf9f35f599d09dd4dbda0c98d61cbabc, type: 2}

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class CollectionSortOptions
 {
@@ -12,6 +13,7 @@ public class CollectionSortOptions
     public bool rare = true;
     public bool unco = true;
     public bool co = true;
+
     public bool Get(CardRarety cardRarety)
     {
         if(cardRarety == CardRarety.ALT)
@@ -317,5 +319,9 @@ public class CollectionManager : MonoBehaviour
                 coButton.GetComponent<Image>().color = new Color(1f,1f,1f);
             }
         }
+    }
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(1);
     }
 }

@@ -7,7 +7,8 @@ public enum ServerPackets
 {
     welcome = 1,
     createUser = 2,
-    loginResponse = 3
+    loginResponse = 3,
+    updateCollection = 4
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -15,7 +16,9 @@ public enum ClientPackets
 {
     welcomeReceived = 1,
     createUserRequest = 2,
-    loginRequest = 3
+    loginRequest = 3,
+    addCard = 4,
+    updateCollectionRequest = 5
 }
 
 public class Packet : IDisposable

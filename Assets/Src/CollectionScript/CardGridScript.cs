@@ -10,8 +10,8 @@ public class CardGridScript : MonoBehaviour
     [SerializeField]
     CollectionManager collecManager;
     
-    [SerializeField]
-    List<CardScriptable> cardScripts;
+
+    List<CardAndCount> cardScripts;
     
     [SerializeField]
     GameObject prefabCard;
@@ -31,8 +31,9 @@ public class CardGridScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cardScripts = Client.instance.GetCollection();
         Populate();
-        collecManager.SetCardWatcherMode(cardScripts[0]);
+        collecManager.SetCardWatcherMode(cardScripts[0].script);
     }
 
 
@@ -48,7 +49,7 @@ public class CardGridScript : MonoBehaviour
         currentIndex=0;
         for(int i = 0; i<cardScripts.Count; i++)
         {
-            if(script.GetCardName() == cardScripts[i].GetCardName())
+            if(script.GetCardName() == cardScripts[i].script.GetCardName())
             {
                 currentIndex = i;
                 break;
@@ -61,14 +62,14 @@ public class CardGridScript : MonoBehaviour
         currentIndex--;
         if(currentIndex<0)
             currentIndex = cardScripts.Count-1;
-        return cardScripts[currentIndex];
+        return cardScripts[currentIndex].script;
     }
     public CardScriptable Next()
     {
         currentIndex++;
         if(currentIndex>cardScripts.Count-1)
             currentIndex =0;
-        return cardScripts[currentIndex];
+        return cardScripts[currentIndex].script;
     }
 
     public void Populate()
@@ -82,7 +83,7 @@ public class CardGridScript : MonoBehaviour
             var go = Instantiate(prefabCard,this.transform);
 
             CollectionCardButton btn = go.GetComponent<CollectionCardButton>();
-            btn.Init(cardScripts[index]);
+            btn.Init(cardScripts[index].script);
             CollectionMouseHandler mouseHandler = go.GetComponent<CollectionMouseHandler>();
             mouseHandler.SetCollectionManager(this.collecManager);
         } 
@@ -96,12 +97,12 @@ public class CardGridScript : MonoBehaviour
         float width=0;
         for(int index=0; index<cardScripts.Count; index++)
         {
-            if(cardScripts[index].GetCardType() == cardType)
+            if(cardScripts[index].script.GetCardType() == cardType)
             {
                 var go = Instantiate(prefabCard,this.transform);
 
                 CollectionCardButton btn = go.GetComponent<CollectionCardButton>();
-                btn.Init(cardScripts[index]);
+                btn.Init(cardScripts[index].script);
                 CollectionMouseHandler mouseHandler = go.GetComponent<CollectionMouseHandler>();
                 mouseHandler.SetCollectionManager(this.collecManager);
             }
@@ -116,14 +117,14 @@ public class CardGridScript : MonoBehaviour
         float width=0;
         for(int index=0; index<cardScripts.Count; index++)
         {
-            bool goodType = csoptions.Get(cardScripts[index].GetCardType());
-            bool goodRarety = csoptions.Get(cardScripts[index].rarety);
+            bool goodType = csoptions.Get(cardScripts[index].script.GetCardType());
+            bool goodRarety = csoptions.Get(cardScripts[index].script.rarety);
             if(goodType && goodRarety)
             {
                 var go = Instantiate(prefabCard,this.transform);
 
                 CollectionCardButton btn = go.GetComponent<CollectionCardButton>();
-                btn.Init(cardScripts[index]);
+                btn.Init(cardScripts[index].script);
                 CollectionMouseHandler mouseHandler = go.GetComponent<CollectionMouseHandler>();
                 mouseHandler.SetCollectionManager(this.collecManager);
             }
