@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: barlo1
+  m_EditorClassIdentifier: 
+  cardName: Barlo
+  cardType: 0
+  cardRef: barlo1
+  side: 2
+  time: 1
+  power: 30
+  cost: 20
+  effect: "A son \xE9mergence vous pouvez d\xE9fausser cette carte. Dans ce cas,
+    invoquer en \xE9mergence une carte h\xE9ros de temps inf\xE9rieur ou \xE9gale
+    \xE0 1 de votre d\xE9fausse. (cette carte exclu)"

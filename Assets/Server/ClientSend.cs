@@ -22,19 +22,7 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void AddCard(CardScriptable _card)
-    {
-        using(Packet _packet = new Packet((int)ClientPackets.addCard))
-        {
-            _packet.Write(_card.number);
-            _packet.Write(_card.serieNumber);
-            _packet.Write(false);
-
-            SendTCPData(_packet);
-        }
-    }
-
-    public static void AddCards(List<CardScriptable> _cards)
+    public static void AddCards(List<CardScriptable> _cards, int serie_id=-1)
     {
         using (Packet _packet = new Packet((int)ClientPackets.addCard))
         {
@@ -46,7 +34,8 @@ public class ClientSend : MonoBehaviour
                 i += 1;
                 _packet.Write(i >= _cards.Count); // is This the last card ?
             }
-
+            _packet.Write(serie_id!=-1);
+            _packet.Write(serie_id);
             SendTCPData(_packet);
         }
     }

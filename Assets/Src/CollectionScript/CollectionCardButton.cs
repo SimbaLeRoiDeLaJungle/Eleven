@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,23 +8,31 @@ public class CollectionCardButton : MonoBehaviour
 {
     [SerializeField]
     CardScriptable cardScriptable;
-    Image image;
+
+    CardInitializer cardInitializer;
+    
+    [SerializeField]
+    CardInfo cardInfo;
     // Start is called before the first frame update
     void Awake()
     {
-        image = GetComponent<Image>();
+        cardInitializer  = GetComponent<CardInitializer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(cardInfo.gameObject.GetComponent<RectTransform>().rect != GetComponent<RectTransform>().rect)
+        {
+            cardInfo.SetOnRect(GetComponent<RectTransform>().rect);
+        }
     }
 
-    public void Init(CardScriptable cardInfo)
+    public void Init(CardScriptable cardScriptable)
     {
-        this.cardScriptable = cardInfo;
-        this.image.sprite = this.cardScriptable.sprite;
+        this.cardScriptable = cardScriptable;
+        cardInitializer.SetCardScriptable(cardScriptable);
+        cardInitializer.UpdateRender(false);
     }
 
     public Rect GetRect()
@@ -34,5 +43,17 @@ public class CollectionCardButton : MonoBehaviour
     public CardScriptable GetCardScriptable()
     {
         return cardScriptable;
+    }
+
+    public void SetInCollection(bool inCollection)
+    {
+        if(!inCollection)
+        {
+            GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+        }
+        else
+        {
+            GetComponent<Image>().color = new Color(1,1,1);
+        }
     }
 }

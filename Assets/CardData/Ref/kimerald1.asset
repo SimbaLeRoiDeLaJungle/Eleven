@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: kimerald1
+  m_EditorClassIdentifier: 
+  cardName: Kimerald
+  cardType: 0
+  cardRef: kimerald1
+  side: 2
+  time: 1
+  power: 30
+  cost: 20
+  effect: "ne fois pendant votre tour vous pouvez utiliser ce talent, si vous avez
+    un anzu inactif en jeu, diminuez le temps d\u2019attente d\u2019un de vos Anz\xFB
+    en jeu de 1."

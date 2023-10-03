@@ -8,6 +8,6 @@ public class CardMenu : MonoBehaviour
     void Start()
     {
         initializer = GetComponent<CardInitializer>();
-        initializer.UpdateRender();
+        initializer.UpdateRender(true);
     }
 }

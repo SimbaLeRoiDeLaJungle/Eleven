@@ -16,9 +16,12 @@ public class CardInitializer : MonoBehaviour
         cardScriptable = script;
     }
 
-    public void UpdateRender()
+    public void UpdateRender(bool withMaterial)
     {
         image.sprite = cardScriptable.sprite;
+        if (!withMaterial)
+            return;
+
         image.material = new Material(cardScriptable.material);
         if(cardScriptable.maskSprite != null)
         {

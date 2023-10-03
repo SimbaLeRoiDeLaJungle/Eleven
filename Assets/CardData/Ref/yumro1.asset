@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: yumro1
+  m_EditorClassIdentifier: 
+  cardName: Yumro
+  cardType: 0
+  cardRef: yumro1
+  side: 1
+  time: 1
+  power: 30
+  cost: 30
+  effect: "Si cette carte est sur le terrain toutes les cartes h\xE9ros (Les v\xF4tres
+    et ceux de votre adversaire) n\u2019ont pas de pouvoir pendant leur \xE9mergence."

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: ibahrius1
+  m_EditorClassIdentifier: 
+  cardName: Ibahrius
+  cardType: 0
+  cardRef: ibahrius1
+  side: 2
+  time: 1
+  power: 30
+  cost: 20
+  effect: "Une fois pendant votre tour, vous pouvez m\xE9langer ce personnage avec
+    votre deck. Dans ce cas, votre adversaire m\xE9lange sa main avec son deck et
+    pioche 4 cartes."

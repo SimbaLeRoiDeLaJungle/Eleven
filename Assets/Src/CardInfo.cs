@@ -40,4 +40,27 @@ public class CardInfo : MonoBehaviour
             cost.text = data.cost.ToString();
         }
     }
+
+    public void SetOnRect(Rect rect)
+    {       
+        Rect templateRect = GetComponent<RectTransform>().rect;
+        GetComponent<RectTransform>().sizeDelta = new Vector2(rect.width, rect.height);
+
+
+        float ratio = rect.width/ templateRect.width;
+
+        UpdateText(name,ratio);
+        UpdateText(heroEffect, ratio);
+        UpdateText(time, ratio);
+        UpdateText(power, ratio);
+        UpdateText(cost, ratio);        
+        
+    }
+
+    void UpdateText(TMP_Text text,float ratio)
+    {
+        text.transform.localPosition = text.transform.localPosition * ratio;
+        text.fontSizeMax = text.fontSizeMax * ratio;
+        text.fontSizeMin = text.fontSizeMin * ratio;
+    }
 }

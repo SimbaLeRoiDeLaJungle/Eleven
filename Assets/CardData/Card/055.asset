@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f078c7b1effaa6499b1052fba8e811a, type: 3}
+  m_Name: 055
+  m_EditorClassIdentifier: 
+  cardRef: {fileID: 11400000, guid: 0f3bd23fee7ac0943a21c4e0490f0590, type: 2}
+  number: 55
+  serieNumber: 0
+  rarety: 0
+  sprite: {fileID: 21300000, guid: 63c22be78609f334caa8de8caf87abc8, type: 3}
+  maskSprite: {fileID: 0}
+  material: {fileID: 2100000, guid: bf9f35f599d09dd4dbda0c98d61cbabc, type: 2}

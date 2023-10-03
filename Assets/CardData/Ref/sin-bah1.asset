@@ -14,9 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Sin-Bah
   cardType: 0
-  cardRef: 
+  cardRef: sin-bah1
   side: 2
-  time: 0
-  power: 0
-  cost: 0
-  effect: 
+  time: 1
+  power: 40
+  cost: 40
+  effect: "Une fois pendant le tour de votre adversaire si celui-ci attaque l\u2019un
+    de vos h\xE9ros autre que cette carte, vous pouvez utiliser ce talent. Lanc\xE9
+    un d\xE9e, si le r\xE9sultat est sup\xE9rieur ou \xE9gale \xE0 3, l\u2019attaque
+    de votre adversaire est redirig\xE9e vers cette carte."

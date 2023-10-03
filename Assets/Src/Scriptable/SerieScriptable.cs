@@ -8,8 +8,16 @@ public class SerieScriptable : ScriptableObject
     public Sprite artSet;
     public Sprite maskArtSet;
 
+    public int serieId;
+    
     [SerializeField]
     List<CardScriptable> cards;
+
+    [SerializeField]
+    string code; 
+
+
+    public string Code { get { return code; } }
 
     Dictionary<CardRarety, int> raretyCount;
 
@@ -102,5 +110,10 @@ public class SerieScriptable : ScriptableObject
             }
         }
         return null;
+    }
+
+    public List<CardScriptable> GetCards()
+    {
+        return cards;
     }
 }

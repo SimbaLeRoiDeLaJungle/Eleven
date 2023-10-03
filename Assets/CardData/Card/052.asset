@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f078c7b1effaa6499b1052fba8e811a, type: 3}
   m_Name: 052
   m_EditorClassIdentifier: 
-  cardRef: {fileID: 11400000, guid: 006fa2b65810fd643a2bdc32a17687c9, type: 2}
+  cardRef: {fileID: 11400000, guid: f23ec1d627855c9429324656f0e9e425, type: 2}
   number: 52
   serieNumber: 0
-  rarety: 1
-  sprite: {fileID: 21300000, guid: 010411e7a7bfa5c419a76683b8a50da9, type: 3}
+  rarety: 0
+  sprite: {fileID: 21300000, guid: 1730d5307936a274781cd833c546ae53, type: 3}
   maskSprite: {fileID: 0}
   material: {fileID: 2100000, guid: bf9f35f599d09dd4dbda0c98d61cbabc, type: 2}

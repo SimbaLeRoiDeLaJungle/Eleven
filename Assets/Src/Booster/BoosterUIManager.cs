@@ -40,7 +40,7 @@ public class BoosterUIManager : MonoBehaviour
         {
             boosterOpening.LaunchOpening();
             openButton.interactable = false;
-            ClientSend.AddCards(boosterOpening.ToList());
+            ClientSend.AddCards(boosterOpening.ToList(),boosterOpening.SerieId);
         }
 
     }

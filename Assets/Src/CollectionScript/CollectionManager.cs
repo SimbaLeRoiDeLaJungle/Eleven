@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,7 +14,9 @@ public class CollectionSortOptions
     public bool rare = true;
     public bool unco = true;
     public bool co = true;
-
+    public bool inCollection = true;
+    public bool notInCollection = false;
+    public string containText = "";
     public bool Get(CardRarety cardRarety)
     {
         if(cardRarety == CardRarety.ALT)
@@ -53,6 +56,23 @@ public class CollectionSortOptions
         }
     }
 
+    public bool GetInCollection()
+    {
+        return inCollection;
+    }
+    public bool GetNotInCollection()
+    {
+        return notInCollection;
+    }
+    public void SwitchInCollection()
+    {
+        inCollection =!inCollection;
+    }
+    public void SwitchNotInCollection()
+    {
+        notInCollection = !notInCollection;
+    }
+
     public void Set(CardType cardType, bool value)
     {
         if(cardType == CardType.Area)
@@ -70,7 +90,6 @@ public class CollectionSortOptions
     }
     public void Switch(CardType cardType)
     {
-        Debug.Log(cardType);
         if(cardType == CardType.Area)
         {
             showByArea = !showByArea;
@@ -112,6 +131,8 @@ public class CollectionSortOptions
 }
 public class CollectionManager : MonoBehaviour
 {
+    public static CollectionManager instance;
+
     CollectionSortOptions csoptions = new CollectionSortOptions();
 
     public enum Mode
@@ -119,10 +140,6 @@ public class CollectionManager : MonoBehaviour
         Collection,
         CardWatcher
     };
-    [SerializeField]
-    Button addButton;
-    [SerializeField]
-    Button removeButton;
 
     [SerializeField]
     Button leftButton;
@@ -135,13 +152,11 @@ public class CollectionManager : MonoBehaviour
     [SerializeField]
     CardWatcherControl cardWatcher;
 
-    [SerializeField]
-    DeckView deckView;
-
     Mode mode = Mode.Collection;
 
     CardScriptable currentCard;
 
+    #region SortButton
     [SerializeField]
     Button sortSortButton;
 
@@ -165,37 +180,82 @@ public class CollectionManager : MonoBehaviour
 
     [SerializeField]
     Button coButton;
-    
+
+    [SerializeField]
+    Button inCollectionButton;
+
+    [SerializeField]
+    Button notInCollectionButton;
+
+    #endregion SortButton
+
+    [SerializeField]
+    Animator sortPanelAnimator;
+
+    [SerializeField]
+    TMP_Text cardCount;
+
+    [SerializeField]
+    CollectionUIVersionSwitcher collectionUIVersionSwitcher;
+
+    [SerializeField]
+    TMP_InputField searchInputField;
+    [SerializeField]
+    Button searchButton;
+
     public void SetCollectionMode()
     {
         cardWatcher.gameObject.SetActive(false);
     }
 
-    public void SetCardWatcherMode(CardScriptable cardInfo)
+    public void SetCardWatcherMode(CardScriptable cardScriptable)
     {
         cardWatcher.gameObject.SetActive(true);
-        currentCard = cardInfo;
-        cardWatcher.SetCardScriptable(cardInfo);
+        currentCard = cardScriptable;
+        cardWatcher.SetCardScriptable(cardScriptable);
         cardGridScript.SetCurrentCard(currentCard);
+        cardCount.text = Client.GetCardCount(currentCard.serieNumber, currentCard.number).ToString();
+        collectionUIVersionSwitcher.Clear();
+        List<CardScriptable> sameVersions = SeriesData.instance.FindRarityByRef(cardScriptable);
+        collectionUIVersionSwitcher.Set(sameVersions);
     }
 
-    public void AddCardToDeck()
+    public void OpenCloseSortPanel()
     {
-        deckView.AddCard(currentCard);
+        
+        if(sortPanelAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.CollectionSortPanelBaseAnim"))
+        {
+            sortPanelAnimator.SetTrigger("hide");
+        }
+        else if(sortPanelAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.CollectionSortPanelBaseHideAnim"))
+        {
+            sortPanelAnimator.SetTrigger("show");
+        }
     }
 
-    public void RemoveCardToDeck()
+    #region UnityMethods
+    private void Awake()
     {
-        deckView.DropCard(currentCard);
+        if(instance==null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
 
     void Start()
     {
-        addButton.onClick.AddListener(() => AddCardToDeck());
-        removeButton.onClick.AddListener(() => RemoveCardToDeck());
 
         leftButton.onClick.AddListener(() => PreviousCard());
         rightButton.onClick.AddListener(() => NextCard());
+
+        inCollectionButton.onClick.AddListener(() => Sort("inCollection"));
+        notInCollectionButton.onClick.AddListener(() => Sort("notInCollection"));
+
+        UpdateSortButton("notInCollection");
 
         sortSortButton.onClick.AddListener(() => Sort(CardType.Sort));
         herosSortButton.onClick.AddListener(() => Sort(CardType.Heros));
@@ -207,18 +267,28 @@ public class CollectionManager : MonoBehaviour
         uncoButton.onClick.AddListener( () => Sort(CardRarety.UnCommon));
         coButton.onClick.AddListener( () => Sort(CardRarety.Common));
     }
+    #endregion UnityMethods
 
     public void PreviousCard()
     {
         var cardScript = cardGridScript.Previous();
         cardWatcher.SetCardScriptable(cardScript);
+        cardCount.text = Client.GetCardCount(cardScript.serieNumber, cardScript.number).ToString();
+        collectionUIVersionSwitcher.Clear();
+        List<CardScriptable> sameVersions = SeriesData.instance.FindRarityByRef(cardScript);
+        collectionUIVersionSwitcher.Set(sameVersions);
     }
     public void NextCard()
     {
         var cardScript = cardGridScript.Next();
         cardWatcher.SetCardScriptable(cardScript);
+        cardCount.text = Client.GetCardCount(cardScript.serieNumber, cardScript.number).ToString();
+        collectionUIVersionSwitcher.Clear();
+        List<CardScriptable> sameVersions = SeriesData.instance.FindRarityByRef(cardScript);
+        collectionUIVersionSwitcher.Set(sameVersions);
     }
 
+    #region SortMethods
     public void Sort(CardType cardType)
     {
         csoptions.Switch(cardType);
@@ -231,97 +301,147 @@ public class CollectionManager : MonoBehaviour
         csoptions.Switch(cardRarety);
         cardGridScript.PopulateByOptions(csoptions);
         UpdateSortButton(cardRarety);
-        Debug.Log("pass");
-    }
-    public void InitCollectionBox()
-    {
-        cardGridScript.Populate();
     }
 
+    public void Sort(string name)
+    {
+        if(name == "inCollection")
+        {
+            csoptions.SwitchInCollection();
+            cardGridScript.PopulateByOptions(csoptions);
+            UpdateSortButton(name);
+        }
+        else if(name == "notInCollection")
+        {
+            csoptions.SwitchNotInCollection();
+            cardGridScript.PopulateByOptions(csoptions);
+            UpdateSortButton(name);
+        }
+    }
+    public void UpdateSortButton(string name)
+    {
+        if (name == "inCollection")
+        {
+            if (!csoptions.GetInCollection())
+            {
+                inCollectionButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            }
+            else
+            {
+                inCollectionButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+            }
+        }
+        else if (name == "notInCollection")
+        {
+            if (!csoptions.GetNotInCollection())
+            {
+                notInCollectionButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
+            }
+            else
+            {
+                notInCollectionButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
+            }
+        }
+    }
     public void UpdateSortButton(CardType cardType)
     {
-        if(!csoptions.Get(cardType))
+        if (!csoptions.Get(cardType))
         {
-            if(cardType == CardType.Sort)
+            if (cardType == CardType.Sort)
             {
-                sortSortButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                sortSortButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
-            else if(cardType == CardType.Area)
+            else if (cardType == CardType.Area)
             {
-                areaSortButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                areaSortButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
-            else if(cardType == CardType.Heros)
+            else if (cardType == CardType.Heros)
             {
-                herosSortButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                herosSortButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
         }
         else
         {
-            if(cardType == CardType.Sort)
+            if (cardType == CardType.Sort)
             {
-                sortSortButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                sortSortButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
-            else if(cardType == CardType.Area)
+            else if (cardType == CardType.Area)
             {
-                areaSortButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                areaSortButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
-            else if(cardType == CardType.Heros)
+            else if (cardType == CardType.Heros)
             {
-                herosSortButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                herosSortButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
         }
     }
     public void UpdateSortButton(CardRarety cardRarety)
     {
-        if(!csoptions.Get(cardRarety))
+        if (!csoptions.Get(cardRarety))
         {
-            if(cardRarety == CardRarety.ALT)
+            if (cardRarety == CardRarety.ALT)
             {
-                altButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                altButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
-            else if(cardRarety == CardRarety.FA)
+            else if (cardRarety == CardRarety.FA)
             {
-                faButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                faButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
-            else if(cardRarety == CardRarety.Rare)
+            else if (cardRarety == CardRarety.Rare)
             {
-                rareButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                rareButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
-            else if(cardRarety == CardRarety.UnCommon)
+            else if (cardRarety == CardRarety.UnCommon)
             {
-                uncoButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                uncoButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
-            else if(cardRarety == CardRarety.Common)
+            else if (cardRarety == CardRarety.Common)
             {
-                coButton.GetComponent<Image>().color = new Color(0.5f,0.5f,0.5f);
+                coButton.GetComponent<Image>().color = new Color(0.5f, 0.5f, 0.5f);
             }
         }
         else
         {
-            if(cardRarety == CardRarety.ALT)
+            if (cardRarety == CardRarety.ALT)
             {
-                altButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                altButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
-            else if(cardRarety == CardRarety.FA)
+            else if (cardRarety == CardRarety.FA)
             {
-                faButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                faButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
-            else if(cardRarety == CardRarety.Rare)
+            else if (cardRarety == CardRarety.Rare)
             {
-                rareButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                rareButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
-            else if(cardRarety == CardRarety.UnCommon)
+            else if (cardRarety == CardRarety.UnCommon)
             {
-                uncoButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                uncoButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
-            else if(cardRarety == CardRarety.Common)
+            else if (cardRarety == CardRarety.Common)
             {
-                coButton.GetComponent<Image>().color = new Color(1f,1f,1f);
+                coButton.GetComponent<Image>().color = new Color(1f, 1f, 1f);
             }
         }
     }
+    public void SearchByText()
+    {
+        csoptions.containText = searchInputField.text;
+        cardGridScript.PopulateByOptions(csoptions);
+    }
+    #endregion SortMethods
+
+    public void InitCollectionBox()
+    {
+        cardGridScript.PopulateByOptions(csoptions);
+    }
+
+
     public void ReturnToMainMenu()
     {
         SceneManager.LoadScene(1);
     }
+
+
 }

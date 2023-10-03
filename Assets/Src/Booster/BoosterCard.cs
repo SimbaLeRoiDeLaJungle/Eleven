@@ -18,7 +18,7 @@ public class BoosterCard : MonoBehaviour
     public void Init(CardScriptable script)
     {
         initializer.SetCardScriptable(script);
-        initializer.UpdateRender();
+        initializer.UpdateRender(true);
     }
 
     public void ShowCard()

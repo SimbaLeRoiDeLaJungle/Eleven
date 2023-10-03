@@ -12,6 +12,8 @@ public class BoosterOpening : MonoBehaviour
     [SerializeField]
     SerieScriptable serie;
 
+    public int SerieId{ get { return serie.serieId; } }
+
     List<CardScriptable> cards = new List<CardScriptable>();
     int count = 0;
 

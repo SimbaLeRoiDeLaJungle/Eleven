@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c3dbbfb50d60f4c81c72ab6ea3add1, type: 3}
+  m_Name: marih-na1
+  m_EditorClassIdentifier: 
+  cardName: Marih-na1
+  cardType: 0
+  cardRef: marih-na1
+  side: 0
+  time: 0
+  power: 10
+  cost: 20
+  effect: "\xC0 son \xE9mergence, vous pouvez aller chercher deux h\xE9ros (bleu)
+    dans votre deck et les invoquer sur le terrain.\r\nM\xE9langer ensuite votre
+    deck.\r"

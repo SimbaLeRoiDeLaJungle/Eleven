@@ -50,7 +50,6 @@ public class ClientHandle : MonoBehaviour
 
     public static void UpdateCollection(Packet _packet)
     {
-        Debug.Log("pass");
         List<CardAndCount> data = new List<CardAndCount>();
         int Length = _packet.ReadInt();
         for(int i = 0; i < Length; i++) 

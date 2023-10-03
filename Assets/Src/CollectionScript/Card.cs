@@ -7,20 +7,16 @@ public class Card : MonoBehaviour
 {
     [SerializeField]
     CardScriptable cardScriptable;
-    Collider2D collider;
-    [SerializeField]
-    CardInfo cardInfo;
 
-    Image img;
+    Collider2D collider;
+
+    CardInitializer cardInitializer;
+
     // Start is called before the first frame update
     void Awake()
     {
         this.collider = GetComponent<Collider2D>();
-        img = GetComponent<Image>();
-        if(cardScriptable!=null)
-        {
-            img.sprite = cardScriptable.sprite;
-        }
+        cardInitializer = GetComponent<CardInitializer>();
     }
 
     // Update is called once per frame
@@ -40,14 +36,9 @@ public class Card : MonoBehaviour
     public void SetCardScriptable(CardScriptable cardScript)
     {
         this.cardScriptable=cardScript;
-        
-        img.sprite = cardScriptable.sprite;
-        if(cardScriptable.maskSprite != null)
-        {
-            cardScriptable.material.SetTexture("_MaskTex",cardScriptable.maskSprite.texture);
-        }
-        img.material = cardScriptable.material;
 
-        cardInfo.Set(cardScriptable);
+        cardInitializer.SetCardScriptable(cardScript);
+
+        cardInitializer.UpdateRender(true);
     }
 }

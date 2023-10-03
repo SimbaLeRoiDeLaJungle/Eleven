@@ -4509,7 +4509,7 @@ PrefabInstance:
     - target: {fileID: 718640772996095016, guid: 77ab00c51e3349f4a9c5b96b62af4b58, type: 3}
       propertyPath: cardScriptable
       value: 
-      objectReference: {fileID: 11400000, guid: 121acfdf08dda21449e06c76b18c0a31, type: 2}
+      objectReference: {fileID: 11400000, guid: 6cb72e113e72aac43b6900ea4f9cbd8f, type: 2}
     - target: {fileID: 718640772996095022, guid: 77ab00c51e3349f4a9c5b96b62af4b58, type: 3}
       propertyPath: m_Name
       value: CardMenu (3)

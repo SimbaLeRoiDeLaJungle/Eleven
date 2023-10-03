@@ -206,4 +206,30 @@ public class Client : MonoBehaviour
     {
         return isReady;
     }
+
+    public static bool HaveCard(int serieNumber, int number)
+    {
+        foreach(CardAndCount card in instance.collection)
+        {
+            if(card.script.number == number && card.script.serieNumber == serieNumber)
+            {
+                Debug.Log($"have {serieNumber} : {number}");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int GetCardCount(int serieNumber, int number)
+    {
+        CardAndCount cac = instance.collection.Find((CardAndCount cac) => (cac.script.number == number) && (cac.script.serieNumber == serieNumber));
+        if(cac.script != null)
+        {
+            return cac.count;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }
