@@ -99,7 +99,7 @@ public class DeckView : MonoBehaviour
     }
     public void AddCard(CardScriptable script)
     {
-        collecManager.SetCardWatcherMode(script);
+        collecManager.SetCardWatcherCard(script);
         bool found=false;
         for(int index=0 ; index<deckViewCards.Count; index++)
         {

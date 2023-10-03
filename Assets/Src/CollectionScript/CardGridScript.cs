@@ -52,7 +52,7 @@ public class CardGridScript : MonoBehaviour
         currentIndex=0;
         for(int i = 0; i<buttons.Count; i++)
         {
-            if(script.GetCardName() == buttons[i].GetCardScriptable().GetCardName())
+            if(script == buttons[i].GetCardScriptable())
             {
                 currentIndex = i;
                 break;
@@ -87,7 +87,8 @@ public class CardGridScript : MonoBehaviour
             {
                 bool goodType = csoptions.Get(cardScripts[index].script.GetCardType());
                 bool goodRarety = csoptions.Get(cardScripts[index].script.rarety);
-                if (goodType && goodRarety)
+                bool containsText = cardScripts[index].script.cardRef.cardName.ToLower().Contains(csoptions.containText.ToLower());
+                if (goodType && goodRarety && containsText)
                 {
                     var go = Instantiate(prefabCard, this.transform);
 
@@ -111,7 +112,8 @@ public class CardGridScript : MonoBehaviour
                 {
                     bool goodType = csoptions.Get(cards[j].GetCardType());
                     bool goodRarety = csoptions.Get(cards[j].rarety);
-                    if (goodType && goodRarety)
+                    bool containsText = cards[j].cardRef.cardName.ToLower().Contains(csoptions.containText.ToLower());
+                    if (goodType && goodRarety && containsText)
                     {
                         var go = Instantiate(prefabCard, this.transform);
 
@@ -136,7 +138,8 @@ public class CardGridScript : MonoBehaviour
                 {
                     bool goodType = csoptions.Get(cards[j].GetCardType());
                     bool goodRarety = csoptions.Get(cards[j].rarety);
-                    if (goodType && goodRarety)
+                    bool containsText = cards[j].cardRef.cardName.ToLower().Contains(csoptions.containText.ToLower());
+                    if (goodType && goodRarety && containsText)
                     {
                         if (!Client.HaveCard(cards[j].serieNumber, cards[j].number))
                         {
@@ -154,7 +157,6 @@ public class CardGridScript : MonoBehaviour
                 }
             }
         }
-        SortByText(csoptions.containText);
     }
 
     public void Reset()
@@ -176,22 +178,4 @@ public class CardGridScript : MonoBehaviour
         return buttons.Count;
     }
 
-
-    public void SortByText(string textToSearchLower)
-    {        
-        List<CardGridScriptItem> result = new List<CardGridScriptItem>();
-
-        for (int i = 0; i < buttons.Count; i++)
-        {
-            if (!buttons[i].GetCardScriptable().cardRef.cardName.ToLower().Contains(textToSearchLower))
-            {
-                Destroy(buttons[i].gameObject);
-            }
-            else
-            {
-                result.Add(buttons[i]);
-            }
-        }
-        buttons = result;
-    }
 }

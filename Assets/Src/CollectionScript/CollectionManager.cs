@@ -31,7 +31,7 @@ public class CollectionManager : MonoBehaviour
     [SerializeField]
     SortManager sortManager;
 
-    public void SetCardWatcherMode(CardScriptable cardScriptable)
+    public void SetCardWatcherCard(CardScriptable cardScriptable)
     {
         cardWatcher.gameObject.SetActive(true);
         currentCard = cardScriptable;
@@ -97,6 +97,7 @@ public class CollectionManager : MonoBehaviour
 
     public void HandleCardClick(CardGridScriptItem ccb)
     {
-        SetCardWatcherMode(ccb.GetCardScriptable());
+        SetCardWatcherCard(ccb.GetCardScriptable());
+
     }
 }
