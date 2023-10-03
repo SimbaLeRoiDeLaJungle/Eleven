@@ -15,6 +15,7 @@ public class BoosterOpening : MonoBehaviour
     public int SerieId{ get { return serie.serieId; } }
 
     List<CardScriptable> cards = new List<CardScriptable>();
+
     int count = 0;
 
     BoosterCard lastCard = null;

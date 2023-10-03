@@ -10,11 +10,11 @@ public class DeckViewCard : MonoBehaviour
     [SerializeField]
     TMP_Text countText;
     int count;
-    CollectionCardButton ccb;
+    CardGridScriptItem ccb;
     // Start is called before the first frame update
     void Awake()
     {
-        ccb = GetComponent<CollectionCardButton>();
+        ccb = GetComponent<CardGridScriptItem>();
     }
 
     // Update is called once per frame

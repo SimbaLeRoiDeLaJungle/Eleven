@@ -14,6 +14,7 @@ public struct CardAndCount: IComparable<CardAndCount>, IEquatable<CardAndCount>
     }
     [SerializeField]
     public CardScriptable script;
+
     [SerializeField]
     public int count;
 
@@ -116,10 +117,10 @@ public class DeckView : MonoBehaviour
             var dvc = go.GetComponent<DeckViewCard>();
             dvc.SetCardScriptable(script);
             dvc.SetCount(1);
-            dvc.GetComponent<CollectionMouseHandler>().SetCollectionManager(collecManager);
+            //dvc.GetComponent<CollectionMouseHandler>().SetHandleClick(collecManager);
             deckViewCards.Add(dvc);
-            var btn = go.GetComponent<CollectionMouseHandler>();
-            btn.SetCollectionManager(this.collecManager);
+            var btn = go.GetComponent<CardGridItemClickHandler>();
+            //btn.SetHandleClick(this.collecManager);
         }
     }
 }

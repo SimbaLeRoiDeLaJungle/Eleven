@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CollectionCardButton : MonoBehaviour
+// ----------------------- Card Grid Script Item -----------------------
+// Les items dans la grid
+//-----------------------------------------------------------------
+public class CardGridScriptItem : MonoBehaviour
 {
     [SerializeField]
-    CardScriptable cardScriptable;
+    CardScriptable cardScriptable; // Info sur la cartes
 
-    CardInitializer cardInitializer;
-    
-    [SerializeField]
-    CardInfo cardInfo;
+    CardInitializer cardInitializer; // pour l'effet holo
+
+    #region UnityMethods
     // Start is called before the first frame update
     void Awake()
     {
@@ -22,22 +24,15 @@ public class CollectionCardButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cardInfo.gameObject.GetComponent<RectTransform>().rect != GetComponent<RectTransform>().rect)
-        {
-            cardInfo.SetOnRect(GetComponent<RectTransform>().rect);
-        }
+
     }
+    #endregion UnityMethods
 
     public void Init(CardScriptable cardScriptable)
     {
         this.cardScriptable = cardScriptable;
         cardInitializer.SetCardScriptable(cardScriptable);
         cardInitializer.UpdateRender(false);
-    }
-
-    public Rect GetRect()
-    {
-        return GetComponent<RectTransform>().rect;
     }
 
     public CardScriptable GetCardScriptable()

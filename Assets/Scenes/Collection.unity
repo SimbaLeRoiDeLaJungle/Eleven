@@ -3701,6 +3701,7 @@ GameObject:
   - component: {fileID: 1227100685}
   - component: {fileID: 1227100684}
   - component: {fileID: 1227100688}
+  - component: {fileID: 1227100689}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3814,6 +3815,21 @@ MonoBehaviour:
   rightButton: {fileID: 229758216}
   cardGridScript: {fileID: 1695070361}
   cardWatcher: {fileID: 333378741}
+  cardCount: {fileID: 1502985332}
+  collectionUIVersionSwitcher: {fileID: 2048611804}
+  sortManager: {fileID: 1227100689}
+--- !u!114 &1227100689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227100682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbba3585680c4724db4d1b7838d47a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   sortSortButton: {fileID: 17012271}
   herosSortButton: {fileID: 446187483}
   areaSortButton: {fileID: 84190521}
@@ -3825,10 +3841,9 @@ MonoBehaviour:
   inCollectionButton: {fileID: 1283291510}
   notInCollectionButton: {fileID: 1501629661}
   sortPanelAnimator: {fileID: 1107586594}
-  cardCount: {fileID: 1502985332}
-  collectionUIVersionSwitcher: {fileID: 2048611804}
+  showAndHidePanel: {fileID: 6040529}
   searchInputField: {fileID: 679310185}
-  searchButton: {fileID: 0}
+  searchButton: {fileID: 1713130327}
 --- !u!1 &1283291508
 GameObject:
   m_ObjectHideFlags: 0
@@ -5449,11 +5464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784df410be713574eadf90db99d398f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collecManager: {fileID: 1227100688}
   prefabCard: {fileID: 3671818943972218302, guid: c0e483d0521e91f4e98f21d3df7f3a7d, type: 3}
-  padding: {x: 5, y: 5}
-  size: {x: 1600, y: 0}
-  relativePosition: {x: -820, y: 320}
 --- !u!114 &1695070362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5575,19 +5586,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1713130328}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1227100688}
-        m_TargetAssemblyTypeName: CollectionManager, Assembly-CSharp
-        m_MethodName: Search
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1713130328
 MonoBehaviour:
   m_ObjectHideFlags: 0

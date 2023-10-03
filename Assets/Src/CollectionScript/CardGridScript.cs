@@ -3,39 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
+// ----------------------- Card Grid Script -----------------------
+// Permet de contenir des cartes dans une scrollview pour la collection , creation de deck echange etc ...
+//-----------------------------------------------------------------
 public class CardGridScript : MonoBehaviour
 {
-
-    [SerializeField]
-    CollectionManager collecManager;
-
-    List<CardAndCount> cardScripts;
+    List<CardAndCount> cardScripts; // contients les cartes dans la collection de l'utilisateurs
     
     [SerializeField]
-    GameObject prefabCard;
+    GameObject prefabCard; // les UI qui vont servir de base pour les cartes
+
+    List<CardGridScriptItem> buttons = new List<CardGridScriptItem>(); // Contient les cartes qui sont afficher (En fonction des options de tri)
+
+    int currentIndex; // pour pouvoir se déplacer
+
+    public delegate void HandleClick(CardGridScriptItem ccb); // Pour implémenter ce qui se passe lorsque l'on clique sur un item, dans le but d'utiliser cette grille dans plusieurs contextes
 
     [SerializeField]
-    Vector2 padding;
+    HandleClick handleClick;
 
-    [SerializeField]
-    Vector2 size;
+    public void SetHandleClick(HandleClick _handleClick) 
+    {
+        handleClick = _handleClick;
+    }
 
-    [SerializeField]
-    Vector2 relativePosition;
-
-    List<CollectionCardButton> buttons = new List<CollectionCardButton>();
-
-    int currentIndex;
+    #region UnityMethods
     // Start is called before the first frame update
     void Start()
     {
         if(Client.instance != null)
         {
             cardScripts = Client.instance.GetCollection();
-            Populate();
-            collecManager.SetCardWatcherMode(cardScripts[0].script);
+            Populate(new CollectionSortOptions());
         }
     }
 
@@ -46,6 +45,7 @@ public class CardGridScript : MonoBehaviour
     {
         
     }
+    #endregion UnityMethods
 
     public void SetCurrentCard(CardScriptable script)
     {
@@ -76,23 +76,7 @@ public class CardGridScript : MonoBehaviour
         return buttons[currentIndex].GetCardScriptable();
     }
 
-    public void Populate()
-    {
-        Reset();
-        for(int index=0; index<cardScripts.Count; index++)
-        {
-            var go = Instantiate(prefabCard,this.transform);
-
-            CollectionCardButton btn = go.GetComponent<CollectionCardButton>();
-            buttons.Add(btn);
-            btn.Init(cardScripts[index].script);
-            CollectionMouseHandler mouseHandler = go.GetComponent<CollectionMouseHandler>();
-            mouseHandler.SetCollectionManager(this.collecManager);
-        } 
-    }
-
-
-    public void PopulateByOptions(CollectionSortOptions csoptions)
+    public void Populate(CollectionSortOptions csoptions)
     {
         currentIndex = 0;
         Reset();
@@ -107,11 +91,11 @@ public class CardGridScript : MonoBehaviour
                 {
                     var go = Instantiate(prefabCard, this.transform);
 
-                    CollectionCardButton btn = go.GetComponent<CollectionCardButton>();
+                    CardGridScriptItem btn = go.GetComponent<CardGridScriptItem>();
                     buttons.Add(btn);
                     btn.Init(cardScripts[index].script);
-                    CollectionMouseHandler mouseHandler = go.GetComponent<CollectionMouseHandler>();
-                    mouseHandler.SetCollectionManager(this.collecManager);
+                    CardGridItemClickHandler mouseHandler = go.GetComponent<CardGridItemClickHandler>();
+                    mouseHandler.SetHandleClick(handleClick);
                 }
 
             }
@@ -131,12 +115,12 @@ public class CardGridScript : MonoBehaviour
                     {
                         var go = Instantiate(prefabCard, this.transform);
 
-                        CollectionCardButton btn = go.GetComponent<CollectionCardButton>();
+                        CardGridScriptItem btn = go.GetComponent<CardGridScriptItem>();
                         buttons.Add(btn);
                         btn.Init(cards[j]);
                         btn.SetInCollection(Client.HaveCard(cards[j].serieNumber, cards[j].number));
-                        CollectionMouseHandler mouseHandler = go.GetComponent<CollectionMouseHandler>();
-                        mouseHandler.SetCollectionManager(this.collecManager);
+                        CardGridItemClickHandler mouseHandler = go.GetComponent<CardGridItemClickHandler>();
+                        mouseHandler.SetHandleClick(handleClick);
 
                     }
                 }
@@ -158,12 +142,12 @@ public class CardGridScript : MonoBehaviour
                         {
                             var go = Instantiate(prefabCard, this.transform);
 
-                            CollectionCardButton btn = go.GetComponent<CollectionCardButton>();
+                            CardGridScriptItem btn = go.GetComponent<CardGridScriptItem>();
                             buttons.Add(btn);
                             btn.Init(cards[j]);
                             btn.SetInCollection(false);
-                            CollectionMouseHandler mouseHandler = go.GetComponent<CollectionMouseHandler>();
-                            mouseHandler.SetCollectionManager(this.collecManager);
+                            CardGridItemClickHandler mouseHandler = go.GetComponent<CardGridItemClickHandler>();
+                            mouseHandler.SetHandleClick(handleClick);
                         }
                     }
 
@@ -195,7 +179,7 @@ public class CardGridScript : MonoBehaviour
 
     public void SortByText(string textToSearchLower)
     {        
-        List<CollectionCardButton> result = new List<CollectionCardButton>();
+        List<CardGridScriptItem> result = new List<CardGridScriptItem>();
 
         for (int i = 0; i < buttons.Count; i++)
         {
