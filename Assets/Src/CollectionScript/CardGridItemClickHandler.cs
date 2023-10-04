@@ -13,7 +13,11 @@ public class CardGridItemClickHandler : MonoBehaviour,IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         var ccb = eventData.pointerCurrentRaycast.gameObject.GetComponent<CardGridScriptItem>();
-        handleClick(ccb);
+        if(ccb!= null && handleClick!=null) 
+        {
+            handleClick(ccb);
+        }
+        
     }
 
     public void SetHandleClick(CardGridScript.HandleClick _handleClick)
