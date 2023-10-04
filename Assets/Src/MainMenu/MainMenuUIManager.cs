@@ -24,10 +24,14 @@ public class MainMenuUIManager : MonoBehaviour
 
     public void LoadCollection()
     {
-        StartCoroutine(WaitForLoadCollectionScene());
+        StartCoroutine(WaitForLoadScene(0));
     }
 
-    IEnumerator WaitForLoadCollectionScene()
+    public void LoadTrade()
+    {
+        StartCoroutine(WaitForLoadScene(3));
+    }
+    IEnumerator WaitForLoadScene(int i)
     {
         ClientSend.RequestUpdateCollection();
         float waitTime = 0.1f;
@@ -35,6 +39,6 @@ public class MainMenuUIManager : MonoBehaviour
         {
             yield return new WaitForSeconds(waitTime);
         }
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(i);
     }
 }

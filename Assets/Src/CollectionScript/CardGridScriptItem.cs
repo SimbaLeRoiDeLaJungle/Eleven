@@ -51,4 +51,5 @@ public class CardGridScriptItem : MonoBehaviour
             GetComponent<Image>().color = new Color(1,1,1);
         }
     }
+
 }

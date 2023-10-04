@@ -22,6 +22,8 @@ public class CardGridScript : MonoBehaviour
     [SerializeField]
     HandleClick handleClick;
 
+    [SerializeField]
+    bool autoPopulateWithClientCollection = true;
     public void SetHandleClick(HandleClick _handleClick) 
     {
         handleClick = _handleClick;
@@ -31,10 +33,11 @@ public class CardGridScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(Client.instance != null)
+        if(Client.instance != null && autoPopulateWithClientCollection)
         {
             cardScripts = Client.instance.GetCollection();
             Populate(new CollectionSortOptions());
+            Debug.Log("pass");
         }
     }
 
@@ -172,10 +175,60 @@ public class CardGridScript : MonoBehaviour
     {
         return buttons[index].GetCardScriptable();
     }
-
+    public CardGridScriptItem GetGridItem(CardScriptable c)
+    {
+        foreach(CardGridScriptItem btn in buttons)
+        {
+            if (btn.GetCardScriptable() == c)
+                return btn;
+        }
+        return null;
+    }
     public int GetCardCount()
     {
         return buttons.Count;
     }
 
+    public void AddAtTheEnd(CardScriptable card, bool canDuplicateCard = true)
+    {
+        bool instantiate = true;
+        if(!canDuplicateCard)
+        {
+            var itm = GetGridItem(card);
+            if(itm != null)
+            {
+                instantiate = false;
+            }
+        }
+
+        if(instantiate)
+        {
+            var go = Instantiate(prefabCard, this.transform);
+
+            CardGridScriptItem btn = go.GetComponent<CardGridScriptItem>();
+            buttons.Add(btn);
+            btn.Init(card);
+            CardGridItemClickHandler mouseHandler = go.GetComponent<CardGridItemClickHandler>();
+            mouseHandler.SetHandleClick(handleClick);
+        }
+    }
+
+    public void RemoveItem(CardScriptable card) 
+    {
+        foreach(var btn in buttons)
+        {
+            if(btn.GetCardScriptable() == card)
+            {
+                buttons.Remove(btn);
+            }
+        }
+    }
+    public delegate void ApplyOnAllDel(CardGridScriptItem _itm);
+    public void ApplyOnAll(ApplyOnAllDel _aoa)
+    {
+        foreach(var btn in buttons)
+        {
+            _aoa(btn);
+        }
+    }
 }
