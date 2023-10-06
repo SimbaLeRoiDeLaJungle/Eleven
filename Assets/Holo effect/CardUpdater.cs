@@ -7,9 +7,10 @@ public class CardUpdater : MonoBehaviour
 {    
     float time= 0;
     float updateTime =0.03f;
-    float dparalax = 0.005f;
+
     [SerializeField]
     Image img;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,10 @@ public class CardUpdater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(img.material.name == "FA_holo" || img.material.name == "boosterMat" ||img.material.name == "MenuMat" )
+
+        if (img.material.name == "FA_holo")
         {
+            float dparalax = 0.005f;
             time += Time.deltaTime;
             string propName = "_RainbowOffset";
             float max = 1;

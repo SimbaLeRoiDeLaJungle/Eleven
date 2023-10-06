@@ -12,6 +12,7 @@ public class CardGridScriptItem : MonoBehaviour
     [SerializeField]
     CardScriptable cardScriptable; // Info sur la cartes
 
+    [SerializeField]
     CardInitializer cardInitializer; // pour l'effet holo
 
     #region UnityMethods
@@ -31,6 +32,7 @@ public class CardGridScriptItem : MonoBehaviour
     public void Init(CardScriptable cardScriptable)
     {
         this.cardScriptable = cardScriptable;
+               
         cardInitializer.SetCardScriptable(cardScriptable);
         cardInitializer.UpdateRender(false);
     }

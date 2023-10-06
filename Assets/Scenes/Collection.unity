@@ -3112,6 +3112,7 @@ GameObject:
   - component: {fileID: 752111347}
   - component: {fileID: 752111349}
   - component: {fileID: 752111348}
+  - component: {fileID: 752111350}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -3151,7 +3152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 499ede0a8930a934ea03625716b362f6, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -3177,6 +3178,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752111346}
   m_CullTransparentMesh: 1
+--- !u!114 &752111350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752111346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 053435425d24975408451b14bfe77e25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  img: {fileID: 752111348}
+  maskTexture1: {fileID: 2800000, guid: 0b06b151e0989c349853c066d76618a7, type: 3}
+  maskTexture2: {fileID: 2800000, guid: d3c37b430511fc24c8fc396e75cf6df4, type: 3}
 --- !u!1 &811988512
 GameObject:
   m_ObjectHideFlags: 0
@@ -5928,6 +5944,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabCard: {fileID: 3671818943972218302, guid: c0e483d0521e91f4e98f21d3df7f3a7d, type: 3}
+  autoPopulateWithClientCollection: 1
 --- !u!114 &1695070362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6984,7 +7001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbb27728e5c35624fb61e7999857a959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardScriptable: {fileID: 11400000, guid: 6ab42f9d4506dff46ae98b4c1b2d71e5, type: 2}
+  cardScriptable: {fileID: 11400000, guid: 1c07837aa2b82454585bb15f75d95211, type: 2}
 --- !u!61 &4166768509843768246
 BoxCollider2D:
   m_ObjectHideFlags: 0

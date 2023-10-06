@@ -118,3 +118,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardScriptable: {fileID: 0}
+  cardInitializer: {fileID: -6308071376705296389}

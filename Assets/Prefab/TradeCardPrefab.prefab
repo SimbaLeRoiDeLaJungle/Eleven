@@ -596,6 +596,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardScriptable: {fileID: 0}
+  cardInitializer: {fileID: -6308071376705296389}
   addButton: {fileID: 4837537665786171780}
   removeButton: {fileID: 1363074842203693518}
   infoCount: {fileID: 5670787116010455446}

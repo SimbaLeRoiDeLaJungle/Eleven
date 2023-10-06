@@ -22,6 +22,7 @@ public class Client : MonoBehaviour
 
     List<CardAndCount> collection = new List<CardAndCount>();
 
+    int cash = 0;
 
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
@@ -182,7 +183,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.welcome, ClientHandle.Welcome },
             { (int)ServerPackets.createUser, ClientHandle.CreateUser },
             { (int)ServerPackets.loginResponse, ClientHandle.LoginResponse},
-            { (int)ServerPackets.updateCollection, ClientHandle.UpdateCollection }
+            { (int)ServerPackets.updateCollection, ClientHandle.UpdateCollection },
+            { (int)ServerPackets.updateTradeData, ClientHandle.UpdateTradeList }
         };
         Debug.Log("Initialized packets.");
     }
@@ -231,5 +233,15 @@ public class Client : MonoBehaviour
         {
             return 0;
         }
+    }
+
+    public static void SetCash(int _cash)
+    {
+        instance.cash = _cash;
+    }
+
+    public static int GetCash()
+    {
+        return instance.cash;
     }
 }

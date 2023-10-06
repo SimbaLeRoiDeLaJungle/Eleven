@@ -43,7 +43,10 @@ public class CollectionManager : MonoBehaviour
         collectionUIVersionSwitcher.Set(sameVersions);
     }
 
-
+    public void InitCardHandleClickBeforeStart()
+    {
+        cardGridScript.SetHandleClick(HandleCardClick);
+    }
 
     #region UnityMethods
     private void Awake()
@@ -51,6 +54,7 @@ public class CollectionManager : MonoBehaviour
         if(instance==null)
         {
             instance = this;
+            instance.InitCardHandleClickBeforeStart();
         }
         else
         {
@@ -64,7 +68,7 @@ public class CollectionManager : MonoBehaviour
         leftButton.onClick.AddListener(() => PreviousCard());
         rightButton.onClick.AddListener(() => NextCard());
 
-        cardGridScript.SetHandleClick(HandleCardClick);
+        
 
         sortManager.SetCardGridScript(cardGridScript);
 
@@ -98,6 +102,6 @@ public class CollectionManager : MonoBehaviour
     public void HandleCardClick(CardGridScriptItem ccb)
     {
         SetCardWatcherCard(ccb.GetCardScriptable());
-
+        
     }
 }

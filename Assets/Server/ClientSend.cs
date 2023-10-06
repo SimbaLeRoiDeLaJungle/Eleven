@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,6 +70,50 @@ public class ClientSend : MonoBehaviour
             packet.Write(username);
             packet.Write(password);
             packet.Write(email);
+            ClientSend.SendTCPData(packet);
+        }
+    }
+
+    public static void CreateTradeRequest(List<CardAndCount> cards, int price)
+    {
+        using(Packet packet = new Packet((int)ClientPackets.createTrade))
+        {
+            packet.Write(Client.instance.myId);
+            packet.Write(price);
+            for(int i =0; i < cards.Count; i++)
+            {
+                packet.Write(cards[i].script.serieNumber);
+                packet.Write(cards[i].script.number);
+                packet.Write(cards[i].count);
+                packet.Write(i==cards.Count-1);
+            }
+
+            ClientSend.SendTCPData(packet);
+        }
+    }
+
+    public static void RequestTradeData(DateTime beginSearch, DateTime endSearch, int last_id) 
+    {
+        using (Packet packet = new Packet((int)ClientPackets.requestTradeData))
+        {
+            packet.Write(Client.instance.myId);
+
+            packet.Write(beginSearch.Year);
+            packet.Write(beginSearch.Month);
+            packet.Write(beginSearch.Day);
+            packet.Write(beginSearch.Hour);
+            packet.Write(beginSearch.Minute);
+            packet.Write(beginSearch.Second);
+
+            packet.Write(endSearch.Year);
+            packet.Write(endSearch.Month); 
+            packet.Write(endSearch.Day);
+            packet.Write(endSearch.Hour);
+            packet.Write(endSearch.Minute);
+            packet.Write(endSearch.Second);
+            
+            packet.Write(last_id);
+
             ClientSend.SendTCPData(packet);
         }
     }

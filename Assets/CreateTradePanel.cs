@@ -21,10 +21,15 @@ public class CreateTradePanel : MonoBehaviour
     [SerializeField]
     CardGridScript tradeGrid;
 
+    [SerializeField]
+    TMP_Text infoText;
     void Start()
     {
+        infoText.text = "";
         closeButton.onClick.AddListener(() => ClosePanel());
         collectionGrid.ApplyOnAll(InitTradeItemCollectionSide);
+        postButton.onClick.AddListener(() => PostTrade());
+        ClosePanel();
     }
 
     // Update is called once per frame
@@ -42,23 +47,34 @@ public class CreateTradePanel : MonoBehaviour
     public void ClosePanel()
     {
         gameObject.SetActive(false);
+        Reset();
     }
 
 
-
-    public void InitTradeItemCollectionSide(CardGridScriptItem _item)
+    public void Reset()
+    {
+        tradeGrid.Reset();
+        price.text = "";
+        collectionGrid.ApplyOnAll(ResetCardCountValue);
+    }
+    public void ResetCardCountValue(CardGridScriptItem _item)
     {
         var tradeItem = (TradeGridItem)_item;
-        tradeItem.SetButtonListener((CardScriptable c) => Add(c), (CardScriptable c) => Remove(c));
-        foreach(var c in Client.instance.GetCollection())
+        foreach (var c in Client.instance.GetCollection())
         {
-            if(c.script == _item.GetCardScriptable())
+            if (c.script == _item.GetCardScriptable())
             {
                 tradeItem.Init(c);
                 tradeItem.UpdateText(false);
                 break;
             }
         }
+    }
+    public void InitTradeItemCollectionSide(CardGridScriptItem _item)
+    {
+        var tradeItem = (TradeGridItem)_item;
+        tradeItem.SetButtonListener((CardScriptable c) => Add(c), (CardScriptable c) => Remove(c));
+        ResetCardCountValue(_item);
     }   
     public void InitTradeItemTradeSide(CardGridScriptItem _item)
     {
@@ -77,6 +93,7 @@ public class CreateTradePanel : MonoBehaviour
 
     public void Add(CardScriptable c)
     {
+        infoText.text = "";
         TradeGridItem tradeItem = (TradeGridItem)tradeGrid.GetGridItem(c);
         if(tradeItem == null)
         {
@@ -94,17 +111,53 @@ public class CreateTradePanel : MonoBehaviour
     }
     public void Remove(CardScriptable c)
     {
+        infoText.text = "";
         TradeGridItem tradeItem = (TradeGridItem)tradeGrid.GetGridItem(c);
         if (tradeItem == null)
         {
             return;
         }
 
-        tradeItem.RemoveOne();
-        tradeItem.UpdateText(true); // 1 = dans la collection-en echangeTotale , 2 = en echange totale, 3 en echange dans cette echange précis.
-        
+        bool needDestroy = !tradeItem.RemoveOne(true);
+        if(needDestroy)
+        {
+            tradeGrid.RemoveItem(tradeItem.GetCardScriptable());
+            Destroy(tradeItem.gameObject);
+        }
+        else
+        {
+            tradeItem.UpdateText(true); // 1 = dans la collection-en echangeTotale , 2 = en echange totale, 3 en echange dans cette echange précis.
+        }
+
         TradeGridItem collectionItem = (TradeGridItem)collectionGrid.GetGridItem(c);
-        collectionItem.RemoveOne();
+
+        collectionItem.RemoveOne(false);
         collectionItem.UpdateText(false);// 1 = dans la collection-en echangeTotale , 2 = en echange totale, 3 en echange dans cette echange précis.
     }
+
+    public void PostTrade()
+    {
+        infoText.text = "";
+        int p;
+        if(!int.TryParse(price.text, out p))
+        {
+            infoText.text = "Tu dois indiquer un prix valide ...";
+            return;
+        }
+        ClientSend.CreateTradeRequest(GetTradeCard(), p);
+        ClosePanel();
+    }
+
+    public List<CardAndCount> GetTradeCard()
+    {
+        var result = new List<CardAndCount>();
+        for(int i =0; i < tradeGrid.GetCardCount(); i++)
+        {
+            TradeGridItem tradeItem = (TradeGridItem)tradeGrid.GetCardGridScriptItem(i);
+            int count = tradeItem.InThisTrade;
+            result.Add(new CardAndCount(tradeItem.GetCardScriptable(), count));
+        }
+        return result;
+    }
 }
+

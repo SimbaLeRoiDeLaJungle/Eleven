@@ -31,13 +31,12 @@ public class CardGridScript : MonoBehaviour
 
     #region UnityMethods
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if(Client.instance != null && autoPopulateWithClientCollection)
         {
             cardScripts = Client.instance.GetCollection();
             Populate(new CollectionSortOptions());
-            Debug.Log("pass");
         }
     }
 
@@ -175,6 +174,11 @@ public class CardGridScript : MonoBehaviour
     {
         return buttons[index].GetCardScriptable();
     }
+    public CardGridScriptItem GetCardGridScriptItem(int index)
+    {
+        return buttons[index];
+    }
+
     public CardGridScriptItem GetGridItem(CardScriptable c)
     {
         foreach(CardGridScriptItem btn in buttons)
@@ -189,7 +193,7 @@ public class CardGridScript : MonoBehaviour
         return buttons.Count;
     }
 
-    public void AddAtTheEnd(CardScriptable card, bool canDuplicateCard = true)
+    public CardGridScriptItem AddAtTheEnd(CardScriptable card, bool canDuplicateCard = true)
     {
         bool instantiate = true;
         if(!canDuplicateCard)
@@ -210,7 +214,9 @@ public class CardGridScript : MonoBehaviour
             btn.Init(card);
             CardGridItemClickHandler mouseHandler = go.GetComponent<CardGridItemClickHandler>();
             mouseHandler.SetHandleClick(handleClick);
+            return btn;
         }
+        return null;
     }
 
     public void RemoveItem(CardScriptable card) 
@@ -220,6 +226,7 @@ public class CardGridScript : MonoBehaviour
             if(btn.GetCardScriptable() == card)
             {
                 buttons.Remove(btn);
+                break;
             }
         }
     }
@@ -231,4 +238,6 @@ public class CardGridScript : MonoBehaviour
             _aoa(btn);
         }
     }
+
+
 }

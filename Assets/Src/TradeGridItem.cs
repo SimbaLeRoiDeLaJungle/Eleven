@@ -19,6 +19,10 @@ public class TradeGridItem : CardGridScriptItem
     int in_trade = 0;
     int in_this_trade = 0;
 
+    public int Count { get { return count; } }
+    public int InTrade { get { return in_trade; } }
+    public int InThisTrade { get { return in_this_trade; } }
+
     public delegate void AddDel(CardScriptable _cardScriptable);
     AddDel Add;
     public delegate void RemoveDel(CardScriptable _cardScriptable);
@@ -34,15 +38,34 @@ public class TradeGridItem : CardGridScriptItem
 
     public void AddOne()
     {
+        if (count == 0)
+            return;
+
         count--;
         in_trade++;
         in_this_trade++;
+        if(count == 0)
+        {
+            addButton.interactable = false;
+        }
     }
-    public void RemoveOne()
+    public bool RemoveOne(bool inTradeGrid)
     {
+        if (in_this_trade == 0)
+            return false;
+
         count++;
         in_trade--;
         in_this_trade--;
+        if(!addButton.interactable)
+        {
+            addButton.interactable = true;
+        }
+        if(in_this_trade == 0 && inTradeGrid)
+        {
+            return false;
+        }
+        return true;
     }
 
     public void UpdateText(bool inTradeGrid)
@@ -59,6 +82,30 @@ public class TradeGridItem : CardGridScriptItem
 
     public void Init(CardAndCount cc)
     {
-        count = cc.count;
+        in_trade = cc.in_trade;
+        count = cc.count - in_trade;
+    }
+
+    public void SetLockMode(bool lockMode, int _in_this_trade)
+    {
+
+        if(lockMode)
+        {
+            addButton.gameObject.SetActive(false);
+            removeButton.gameObject.SetActive(false);
+            infoCount.text = _in_this_trade.ToString();
+        }
+        else
+        {
+            addButton.gameObject.SetActive(true);
+            removeButton.gameObject.SetActive(true);
+        }
+
+    }
+
+    public void Reset()
+    {
+        addButton.gameObject.SetActive(true);
+
     }
 }

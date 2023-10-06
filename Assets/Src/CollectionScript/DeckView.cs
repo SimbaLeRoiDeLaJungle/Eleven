@@ -7,16 +7,19 @@ using System;
 [Serializable]
 public struct CardAndCount: IComparable<CardAndCount>, IEquatable<CardAndCount>
 {
-    public CardAndCount(CardScriptable script, int count)
+    public CardAndCount(CardScriptable script, int count,int _in_trade=0)
     {
         this.script = script;
         this.count = count;
+        in_trade = _in_trade; 
     }
     [SerializeField]
     public CardScriptable script;
 
     [SerializeField]
     public int count;
+
+    public int in_trade;
 
     public int CompareTo(CardAndCount other)
     {

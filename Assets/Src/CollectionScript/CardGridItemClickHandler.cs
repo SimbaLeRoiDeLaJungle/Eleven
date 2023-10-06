@@ -17,6 +17,8 @@ public class CardGridItemClickHandler : MonoBehaviour,IPointerClickHandler
         {
             handleClick(ccb);
         }
+        Debug.Log(ccb);
+        Debug.Log(handleClick);
         
     }
 
